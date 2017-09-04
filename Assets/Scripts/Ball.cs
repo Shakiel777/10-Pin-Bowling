@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour {
     private Rigidbody rigidBody;
 
     private bool hasStarted = false;
-    public float launchVelocity = 50f;
+    public Vector3 launchVelocity;
 
 
 	// Use this for initialization
@@ -33,7 +33,7 @@ public class Ball : MonoBehaviour {
             {
                 print(" Mouse Clicked, launch ball");
                 hasStarted = true;
-                this.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, launchVelocity);
+                this.GetComponent<Rigidbody>().velocity = launchVelocity;
                 audioSource.Play();
             }
         }
