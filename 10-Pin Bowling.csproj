@@ -66,6 +66,8 @@
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\DragLaunch.cs" />
     <Compile Include="Assets\Scripts\OurScoreDisplayTest1.cs" />
+    <Compile Include="Assets\Scripts\Pin.cs" />
+    <Compile Include="Assets\Scripts\PinSetter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
