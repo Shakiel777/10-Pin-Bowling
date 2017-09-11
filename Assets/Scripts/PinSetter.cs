@@ -8,6 +8,7 @@ public class PinSetter : MonoBehaviour {
 
     public int lastStandingCount = -1;    
     public Text standingDisplay;
+    public float distanceToRaise = 40f;
 
     private float lastChangeTime;
     private bool ballEnteredBox = false;
@@ -91,5 +92,26 @@ public class PinSetter : MonoBehaviour {
         {
             Destroy(thingExit);
         }
+    }
+    public void RaisePins()
+    {
+        // raise standing pins only by distanceToRaise
+        foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
+        {
+            pin.RaiseIfStanding();
+        }
+        Debug.Log("Raising Pins");
+    }
+    public void LowerPins()
+    {
+        foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
+        {
+            pin.Lower();
+        }
+        Debug.Log("Lowering Pins");
+    }
+    public void RenewPins()
+    {
+        Debug.Log("Renewing Pins");
     }
 }

@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Pin : MonoBehaviour
 {
-
+    public float distanceToRaise = 40f;
     public float standingThreshold = 3f;
+
 
     // Use this for initialization
     void Start()
@@ -28,5 +29,19 @@ public class Pin : MonoBehaviour
             return false;
         }
         return true;
+    }
+    public void RaiseIfStanding()
+    {
+        // raise standing pins only by distanceToRaise
+            if (IsStanding())
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                transform.Translate(new Vector3(0, distanceToRaise, 0), Space.World);
+            }
+    }
+    public void Lower()
+    {
+                transform.Translate(new Vector3(0, -distanceToRaise, 0), Space.World);
+                GetComponent<Rigidbody>().useGravity = true;
     }
 }
