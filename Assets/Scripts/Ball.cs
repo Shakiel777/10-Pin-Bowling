@@ -4,8 +4,8 @@ using System.Collections;
 public class Ball : MonoBehaviour {
 
     public Vector3 launchVelocity;
-
     public bool inPlay = false;
+
     private Rigidbody rigidBody;
     private AudioSource audioSource;
     private Vector3 ballStartPos;
