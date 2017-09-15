@@ -5,25 +5,61 @@ public class ActionMaster {
 
     public enum Action { Tidy, Reset, EndTurn, EndGame};
 
-    // private int[] bowls = new int[21];  // reminder - arrays start at zero not 1
+
+    private int[] bowls = new int[21];  // reminder - arrays start at zero not 1
     private int bowl = 1;
 
     public Action Bowl (int pins)
     {
         if(pins < 0 || pins > 10){throw new UnityException("Invalid pin count < 0 or > 10!");}
 
-        if (pins == 10) // this is a strike
+        bowls[bowl - 1] = pins;
+
+        if (bowl == 21)
         {
-            bowl += 2; // move to next frame
-            return Action.EndTurn;
+            return Action.EndGame;
         }
 
-        if (bowl % 2 != 0) // we are mid-frame (or last frame)
+        // handle tenth frame
+        if (bowl == 19 && pins == 10)
         {
-            bowl += 1;  // bump frame to end of frame
-            return Action.Tidy;
+            bowl++;
+            return Action.Reset;
         }
-        else if (bowl % 2 == 0) // we are at end of frame 
+        else if(bowl == 20)
+        {
+            bowl++;
+            if (bowls[19-1]== 10 && bowls[20-1] != 10)
+            {
+                return Action.Tidy;
+            }
+            else if ((bowls[19 - 1] + bowls[20 - 1]) % 10 == 0)
+            {
+                return Action.Reset;
+            }
+            else if (Bowl21Awarded())
+            {
+                return Action.Tidy;
+            }
+            else
+            {
+                return Action.EndGame;
+            }
+        }
+
+        if (bowl % 2 != 0) // first bowl of frame
+        {
+            if (pins == 10)
+            {
+                bowl += 2; // move to next frame
+                return Action.EndTurn;
+            }else
+            {
+                bowl += 1;
+                return Action.Tidy;
+            }
+        }
+        else if (bowl % 2 == 0) // second bowl of frame
         {
             bowl += 1;
             return Action.EndTurn;
@@ -33,5 +69,10 @@ public class ActionMaster {
         // refactor code from ugly and working to pretty and working!
 
         throw new UnityException("Not sure what action to return!");
+    }
+    private bool Bowl21Awarded()
+    {
+        // Remeber arrays start counting at zero
+        return (bowls[19 - 1] + bowls[20 - 1] >= 10);
     }
 }
